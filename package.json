@@ -1,11 +1,11 @@
 {
-  "name": "md2pdf-executive",
+  "name": "marktopdf",
   "version": "1.1.0",
-  "description": "Conversor de Markdown técnico para relatórios executivos em PDF A4 com suporte a Mermaid, sem barras de rolagem e sem dependências pesadas de browser.",
+  "description": "Conversor universal de Markdown técnico para relatórios executivos em PDF A4 com suporte a Mermaid, sem barras de rolagem e sem dependências pesadas de browser.",
   "main": "src/index.js",
   "bin": {
-    "md2pdf": "./bin/cli.js",
-    "md2pdf-executive": "./bin/cli.js"
+    "marktopdf": "./bin/cli.js",
+    "md2pdf": "./bin/cli.js"
   },
   "scripts": {
     "start": "node server.js",
@@ -24,7 +24,7 @@
     "edge-headless",
     "chromium"
   ],
-  "author": "OAB-PB / DevOps",
+  "author": "Petryck Slater",
   "license": "MIT",
   "dependencies": {
     "commander": "^15.0.0",

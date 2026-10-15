@@ -40,17 +40,20 @@ const MERMAID_PALETTES = {
 /**
  * Gera a capa executiva formal
  */
-function buildCoverPageHtml({ title, org, coverOptions, dateFormatted }) {
+function buildCoverPageHtml({ title, org, department, logo, coverOptions, dateFormatted }) {
   const subtitle = coverOptions.subtitle || 'Relatório Técnico e Procedimento Operacional Padrão';
-  const author = coverOptions.author || 'Equipe de DevOps & Engenharia de Infraestrutura';
+  const author = coverOptions.author || 'Equipe Técnica & Engenharia';
   const version = coverOptions.version || '1.0';
   const classification = coverOptions.classification || 'CONFIDENCIAL / USO INTERNO';
+  const deptName = coverOptions.department || department || 'DIRETORIA DE TECNOLOGIA & OPERAÇÕES';
+  const logoSrc = coverOptions.logo || logo;
 
   return `
   <section class="cover-page">
     <div class="cover-header">
+      ${logoSrc ? `<div class="cover-logo-wrapper"><img src="${logoSrc}" class="cover-logo" alt="Logo Institucional"></div>` : ''}
       <div class="cover-org">${org}</div>
-      <div class="cover-department">DIRETORIA DE TECNOLOGIA & INFRAESTRUTURA</div>
+      <div class="cover-department">${deptName}</div>
     </div>
 
     <div class="cover-body">
@@ -92,7 +95,9 @@ function buildCoverPageHtml({ title, org, coverOptions, dateFormatted }) {
  * @param {object} params
  * @param {string} params.content Fragmento HTML processado
  * @param {string} [params.title] Título do documento
- * @param {string} [params.org="OAB-PB | Infraestrutura e Operações"] Nome da instituição/empresa
+ * @param {string} [params.org="Organização / Empresa"] Nome da instituição/empresa
+ * @param {string} [params.department] Nome do departamento/setor
+ * @param {string} [params.logo] URL ou caminho do logotipo
  * @param {string} [params.theme="corporate"] Tema visual ('corporate' | 'slate' | 'emerald' | 'burgundy')
  * @param {boolean} [params.showHeader=true] Se deve exibir o cabeçalho executivo institucional
  * @param {boolean|object} [params.cover=false] Adiciona folha de rosto/capa executiva
@@ -103,7 +108,9 @@ function buildCoverPageHtml({ title, org, coverOptions, dateFormatted }) {
 function buildExecutiveHtml({
   content,
   title = 'Relatório Técnico Executivo',
-  org = 'OAB-PB | Infraestrutura e Operações',
+  org = 'Organização / Empresa',
+  department = 'Diretoria de Tecnologia & Operações',
+  logo = null,
   theme = 'corporate',
   showHeader = true,
   cover = false,
@@ -127,6 +134,8 @@ function buildExecutiveHtml({
   const coverHtml = cover ? buildCoverPageHtml({
     title,
     org,
+    department,
+    logo,
     coverOptions: typeof cover === 'object' ? cover : {},
     dateFormatted
   }) : '';
@@ -236,7 +245,10 @@ ${css}
 
   ${showHeader && !cover ? `
   <header class="executive-header">
-    <div class="org-brand">${org}</div>
+    <div class="org-brand-container">
+      ${logo ? `<img src="${logo}" class="org-logo" alt="Logo">` : ''}
+      <div class="org-brand">${org}</div>
+    </div>
     <div class="doc-meta">
       <div>DOCUMENTO TÉCNICO OFICIAL</div>
       <div>EMISSÃO: ${dateFormatted}</div>
@@ -249,7 +261,7 @@ ${css}
   </main>
 
   <footer class="executive-footer">
-    <span>Gerado via Motor Headless Executivo (Node.js + Edge)</span>
+    <span>Gerado via Motor Headless Executivo (Node.js + Chromium)</span>
     <span>Página A4 &bull; Confidencialidade Interna</span>
   </footer>
 </body>

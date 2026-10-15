@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectTheme = document.getElementById('selectTheme');
   const selectOrientation = document.getElementById('selectOrientation');
   const inputOrg = document.getElementById('inputOrg');
+  const inputDepartment = document.getElementById('inputDepartment');
+  const inputLogo = document.getElementById('inputLogo');
   const inputTitle = document.getElementById('inputTitle');
   const checkHeader = document.getElementById('checkHeader');
   const checkPageNumbers = document.getElementById('checkPageNumbers');
@@ -147,6 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
           markdown: md,
           title: inputTitle.value.trim() || undefined,
           org: inputOrg.value.trim() || undefined,
+          department: inputDepartment.value.trim() || undefined,
+          logo: inputLogo.value.trim() || undefined,
           theme: selectTheme.value,
           showHeader: checkHeader.checked,
           toc: checkToc.checked,
@@ -186,6 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
         markdown: md,
         title: inputTitle.value.trim() || undefined,
         org: inputOrg.value.trim() || undefined,
+        department: inputDepartment.value.trim() || undefined,
+        logo: inputLogo.value.trim() || undefined,
         theme: selectTheme.value,
         showHeader: checkHeader.checked,
         toc: checkToc.checked,
@@ -244,6 +250,8 @@ document.addEventListener('DOMContentLoaded', () => {
         markdown: md,
         title: inputTitle.value.trim() || undefined,
         org: inputOrg.value.trim() || undefined,
+        department: inputDepartment.value.trim() || undefined,
+        logo: inputLogo.value.trim() || undefined,
         theme: selectTheme.value,
         showHeader: checkHeader.checked,
         toc: checkToc.checked,
@@ -367,6 +375,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Atualiza prévia quando opções de configuração mudam
   selectTheme.addEventListener('change', () => triggerPreviewUpdate(true));
   inputOrg.addEventListener('input', () => triggerPreviewUpdate());
+  inputDepartment.addEventListener('input', () => triggerPreviewUpdate());
+  inputLogo.addEventListener('input', () => triggerPreviewUpdate());
   inputTitle.addEventListener('input', () => triggerPreviewUpdate());
   checkHeader.addEventListener('change', () => triggerPreviewUpdate(true));
   checkToc.addEventListener('change', () => triggerPreviewUpdate(true));

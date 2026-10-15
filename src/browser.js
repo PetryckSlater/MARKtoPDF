@@ -119,7 +119,7 @@ function printHtmlToPdf(htmlPath, pdfPath, options = {}) {
       // Cabeçalho e rodapé nativos do Chromium com numeração oficial de páginas
       args.push('--display-header-footer');
 
-      const safeOrg = (options.org || 'OAB-PB | Documento Técnico').replace(/"/g, '&quot;');
+      const safeOrg = (options.org || 'Documento Técnico').replace(/"/g, '&quot;');
       const safeTitle = (options.title || 'Relatório Executivo').replace(/"/g, '&quot;');
 
       const headerTemplate = `<div style="font-size: 8px; width: 100%; display: flex; justify-content: space-between; padding: 0 15mm; color: #64748b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;"><span>${safeOrg}</span><span>${safeTitle}</span></div>`;

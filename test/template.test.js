@@ -14,7 +14,9 @@ test('buildExecutiveHtml deve renderizar a capa executiva quando solicitada', ()
   const html = buildExecutiveHtml({
     content: '<p>Conteúdo</p>',
     title: 'Plano Diretor de TI',
-    org: 'OAB-PB',
+    org: 'Acme Corp',
+    department: 'Engenharia de Software',
+    logo: 'https://acme.com/logo.png',
     cover: {
       author: 'Diretoria de Tecnologia',
       version: '2.0'
@@ -23,6 +25,9 @@ test('buildExecutiveHtml deve renderizar a capa executiva quando solicitada', ()
 
   assert.equal(html.includes('class="cover-page"'), true);
   assert.equal(html.includes('Plano Diretor de TI'), true);
+  assert.equal(html.includes('Acme Corp'), true);
+  assert.equal(html.includes('Engenharia de Software'), true);
+  assert.equal(html.includes('https://acme.com/logo.png'), true);
   assert.equal(html.includes('Diretoria de Tecnologia'), true);
   assert.equal(html.includes('v2.0'), true);
 });

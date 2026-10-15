@@ -59,6 +59,8 @@ app.post('/api/preview', (req, res) => {
       markdown = '',
       title,
       org,
+      department,
+      logo,
       theme = 'corporate',
       showHeader = true,
       toc = false,
@@ -67,7 +69,9 @@ app.post('/api/preview', (req, res) => {
 
     const { html, title: detectedTitle, hasMermaid, mermaidCount, tocItems } = markdownToHtml(markdown, {
       title,
-      org,
+      org: org || 'Organização / Empresa',
+      department,
+      logo,
       theme,
       showHeader: showHeader === true || showHeader === 'true',
       toc: toc === true || toc === 'true',
@@ -93,6 +97,8 @@ app.post('/api/export-html', (req, res) => {
       markdown = '',
       title,
       org,
+      department,
+      logo,
       theme = 'corporate',
       showHeader = true,
       toc = false,
@@ -102,7 +108,9 @@ app.post('/api/export-html', (req, res) => {
 
     const { html, title: detectedTitle } = markdownToHtml(markdown, {
       title,
-      org,
+      org: org || 'Organização / Empresa',
+      department,
+      logo,
       theme,
       showHeader: showHeader === true || showHeader === 'true',
       toc: toc === true || toc === 'true',
@@ -147,7 +155,9 @@ app.post('/api/convert', upload.single('file'), async (req, res) => {
     tempPdfPath = path.join(os.tmpdir(), `md2pdf_${crypto.randomUUID()}_out.pdf`);
 
     const title = req.body.title || undefined;
-    const org = req.body.org || 'OAB-PB | Infraestrutura e Operações';
+    const org = req.body.org || 'Organização / Empresa';
+    const department = req.body.department || undefined;
+    const logo = req.body.logo || undefined;
     const theme = req.body.theme || 'corporate';
     const showHeader = req.body.showHeader !== 'false' && req.body.showHeader !== false;
     const toc = req.body.toc === 'true' || req.body.toc === true;
@@ -160,6 +170,8 @@ app.post('/api/convert', upload.single('file'), async (req, res) => {
     await convertMarkdownToPdf(tempInputPath, tempPdfPath, {
       title,
       org,
+      department,
+      logo,
       theme,
       showHeader,
       toc,

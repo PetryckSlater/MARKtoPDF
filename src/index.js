@@ -39,6 +39,8 @@ function markdownToHtml(markdownText, options = {}) {
     content: contentHtml,
     title,
     org: options.org,
+    department: options.department,
+    logo: options.logo,
     theme: options.theme || 'corporate',
     showHeader: options.showHeader ?? true,
     cover: options.cover ?? false,
@@ -98,6 +100,8 @@ async function convertMarkdownToPdf(inputPath, outputPath, options = {}) {
   const { html, title, hasMermaid, mermaidCount } = markdownToHtml(markdownContent, {
     title: options.title,
     org: options.org,
+    department: options.department,
+    logo: options.logo,
     theme: options.theme,
     showHeader: options.showHeader,
     toc: options.toc,

@@ -12,11 +12,13 @@ program
   .argument('<arquivo-markdown>', 'Caminho do arquivo Markdown de entrada (.md)')
   .option('-o, --output <caminho>', 'Caminho do arquivo PDF de saída (padrão: mesmo nome com .pdf)')
   .option('-t, --title <titulo>', 'Título do relatório executivo')
-  .option('--org <instituicao>', 'Nome da organização para o cabeçalho', 'OAB-PB | Infraestrutura e Operações')
+  .option('--org <instituicao>', 'Nome da organização para o cabeçalho', 'Organização / Empresa')
+  .option('--department <departamento>', 'Nome do departamento ou diretoria', 'Diretoria de Tecnologia & Operações')
+  .option('--logo <caminho-ou-url>', 'Caminho de arquivo local ou URL para o logotipo')
   .option('--theme <tema>', 'Tema visual: corporate (azul), slate (grafite), emerald (verde), burgundy (vinho)', 'corporate')
   .option('--toc', 'Gera automaticamente um Sumário Executivo navegável a partir dos títulos H2/H3', false)
   .option('--cover', 'Gera uma folha de rosto/capa executiva formal antes do conteúdo', false)
-  .option('--author <autor>', 'Nome do autor/responsável exibido na capa', 'DevOps & Engenharia de Infraestrutura')
+  .option('--author <autor>', 'Nome do autor/responsável exibido na capa', 'Equipe Técnica & Engenharia')
   .option('--version-doc <versao>', 'Versão do documento para exibição na capa', '1.0')
   .option('--page-numbers', 'Ativa rodapé oficial com numeração "Página X de Y" em todas as folhas', false)
   .option('--no-header', 'Desativa o cabeçalho executivo institucional estático')
@@ -61,12 +63,16 @@ program
 
       const coverConfig = options.cover ? {
         author: options.author,
-        version: options.versionDoc
+        version: options.versionDoc,
+        department: options.department,
+        logo: options.logo
       } : false;
 
       const result = await convertMarkdownToPdf(resolvedInput, options.output, {
         title: options.title,
         org: options.org,
+        department: options.department,
+        logo: options.logo,
         theme: options.theme,
         showHeader: options.header,
         toc: options.toc,
