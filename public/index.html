@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MD2PDF Executive | Markdown para PDF A4 de Alta Definição</title>
+
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- BARRA SUPERIOR / HEADER -->
+    <header class="top-nav">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">MD2PDF <span class="brand-badge">EXECUTIVE</span> <span class="version-pill">v1.1</span></div>
+          <div class="brand-sub">Parser Inteligente + Mermaid + Print CSS A4</div>
+        </div>
+      </div>
+
+      <div class="nav-center">
+        <div id="engineStatus" class="engine-badge loading">
+          <span class="dot"></span>
+          <span class="engine-text">Localizando Microsoft Edge...</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button id="btnSample" class="btn btn-secondary" title="Carregar documento de exemplo com Docker, Ansible e Mermaid">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          Exemplo DevOps
+        </button>
+        <button id="btnClear" class="btn btn-secondary" title="Limpar editor">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+          Limpar
+        </button>
+        <button id="btnExportHtml" class="btn btn-secondary" title="Exportar documento como HTML autônomo e interativo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Exportar HTML
+        </button>
+        <button id="btnGeneratePdf" class="btn btn-primary" title="Compilar Markdown com Mermaid e gerar PDF A4 no Edge Headless">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="12" y2="12"></line><line x1="15" y1="15" x2="12" y2="12"></line></svg>
+          Gerar PDF Executivo
+        </button>
+      </div>
+    </header>
+
+    <!-- ÁREA PRINCIPAL DIVIDIDA EM 2 PAINÉIS -->
+    <main class="main-content">
+      <!-- PAINEL ESQUERDO: EDITOR & CONFIGURAÇÕES -->
+      <section class="editor-pane">
+        <div class="pane-header">
+          <div class="pane-title">
+            <span>Editor Markdown</span>
+            <span id="charCount" class="char-count">0 caracteres</span>
+          </div>
+          <div class="drop-zone-mini" id="dropZoneMini">
+            <input type="file" id="fileInput" accept=".md,.markdown,.txt" style="display: none;">
+            <button id="btnUpload" class="btn btn-xs">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              Importar .md
+            </button>
+          </div>
+        </div>
+
+        <!-- BARRA DE ATALHOS RÁPIDOS DE FORMATAÇÃO EXECUTIVA -->
+        <div class="editor-toolbar">
+          <span class="toolbar-label">Inserir:</span>
+          <button class="snippet-btn" data-snippet="alert-note" title="Inserir Nota Informativa">+ Alerta</button>
+          <button class="snippet-btn" data-snippet="mermaid-flow" title="Inserir Diagrama de Fluxo Mermaid">+ Mermaid</button>
+          <button class="snippet-btn" data-snippet="code-bash" title="Inserir Bloco Terminal Bash">+ Terminal</button>
+          <button class="snippet-btn" data-snippet="table" title="Inserir Tabela Executiva">+ Tabela</button>
+          <button class="snippet-btn" data-snippet="pagebreak" title="Forçar quebra de página A4">+ Quebra de Página</button>
+          <button class="snippet-btn" data-snippet="toc" title="Inserir Sumário Executivo">+ [TOC]</button>
+          <button class="snippet-btn" data-snippet="checklist" title="Inserir Checklist">+ Checkbox</button>
+        </div>
+
+        <!-- DROP ZONE GRANDE QUANDO VAZIO OU DRAG OVER -->
+        <div id="dropOverlay" class="drop-overlay">
+          <div class="drop-overlay-box">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="12" y2="12"></line><line x1="15" y1="15" x2="12" y2="12"></line></svg>
+            <p>Solte seu arquivo <strong>.md</strong> aqui para importar instantaneamente</p>
+          </div>
+        </div>
+
+        <div class="editor-wrapper">
+          <textarea id="markdownEditor" spellcheck="false" placeholder="Digite ou cole aqui o seu Markdown técnico...
+Suporta diagramas Mermaid:
+```mermaid
+flowchart TD
+  A[Início] --> B[Processo]
+  B --> C[Fim]
+```
+E blocos de código sem quebra de scrollbar:
+```bash
+docker exec -it container /bin/bash
+```"></textarea>
+        </div>
+
+        <!-- CONFIGURAÇÕES DO RELATÓRIO EXECUTIVO -->
+        <div class="settings-drawer">
+          <div class="drawer-title">Parâmetros do Documento Executivo</div>
+          <div class="settings-grid">
+            <div class="form-group">
+              <label for="selectTheme">Tema Corporativo:</label>
+              <select id="selectTheme">
+                <option value="corporate" selected>🔵 Azul OAB-PB (Institucional)</option>
+                <option value="slate">⚫ Grafite Moderno (DevOps / Tech)</option>
+                <option value="emerald">🟢 Esmeralda (Operações & SRE)</option>
+                <option value="burgundy">🍷 Vinho Clássico (Jurídico Tradicional)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="selectOrientation">Orientação da Página:</label>
+              <select id="selectOrientation">
+                <option value="portrait" selected>A4 Retrato (Vertical)</option>
+                <option value="landscape">A4 Paisagem (Horizontal)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="inputOrg">Organização / Instituição:</label>
+              <input type="text" id="inputOrg" value="OAB-PB | Infraestrutura e Operações">
+            </div>
+
+            <div class="form-group">
+              <label for="inputTitle">Título Customizado (opcional):</label>
+              <input type="text" id="inputTitle" placeholder="Detectado automaticamente do primeiro # Título">
+            </div>
+
+            <div class="form-group-checkbox">
+              <input type="checkbox" id="checkHeader" checked>
+              <label for="checkHeader">Exibir cabeçalho executivo no topo</label>
+            </div>
+
+            <div class="form-group-checkbox">
+              <input type="checkbox" id="checkPageNumbers" checked>
+              <label for="checkPageNumbers">Numeração de páginas ("Página X de Y" em todas as folhas)</label>
+            </div>
+
+            <div class="form-group-checkbox">
+              <input type="checkbox" id="checkCover">
+              <label for="checkCover">Incluir Capa Executiva de Rosto (Folha 1 dedicada)</label>
+            </div>
+
+            <div class="form-group-checkbox">
+              <input type="checkbox" id="checkToc">
+              <label for="checkToc">Gerar Sumário Executivo Automático (TOC)</label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAINEL DIREITO: PRÉVIA INTERATIVA EM TEMPO REAL -->
+      <section class="preview-pane">
+        <div class="pane-header">
+          <div class="pane-title">
+            <span class="preview-badge">A4</span>
+            <span>Pré-visualização Executiva</span>
+            <span id="previewStatus" class="preview-status-pill">Sincronizado</span>
+            <span id="mermaidStatusBadge" class="mermaid-badge" style="display: none;">0 Mermaid</span>
+          </div>
+
+          <div class="preview-controls">
+            <!-- CONTROLES DE ZOOM DA FOLHA A4 -->
+            <div class="zoom-controls">
+              <button class="zoom-btn" data-zoom="0.8" title="Visualização 80%">80%</button>
+              <button class="zoom-btn active" data-zoom="1.0" title="Visualização 100%">100%</button>
+              <button class="zoom-btn" data-zoom="1.15" title="Visualização 115%">115%</button>
+            </div>
+
+            <button id="btnRefreshPreview" class="btn btn-xs" title="Atualizar diagramas e prévia">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+              Atualizar
+            </button>
+            <button id="btnOpenNewTab" class="btn btn-xs" title="Abrir em tela cheia / nova aba">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              Nova Aba
+            </button>
+          </div>
+        </div>
+
+        <div class="preview-frame-container">
+          <div class="a4-sheet-simulator" id="a4Simulator">
+            <iframe id="previewFrame" title="Pré-visualização do Relatório Executivo"></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- MODAL / OVERLAY DE GERAÇÃO DO PDF -->
+    <div id="loadingModal" class="loading-modal">
+      <div class="loading-card">
+        <div class="spinner"></div>
+        <div class="loading-title">Gerando PDF Executivo</div>
+        <div class="loading-desc" id="loadingStage">Invocando Microsoft Edge Headless com motor de renderização Mermaid...</div>
+        <div class="loading-tips">
+          <span>&bull; Processando fórmulas trigonométricas dos diagramas</span><br>
+          <span>&bull; Formatando gabarito A4 com numeração oficial de páginas</span><br>
+          <span>&bull; Rasterizando fontes executivas e diagramas vetoriais</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

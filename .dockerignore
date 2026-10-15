@@ -1,0 +1,7 @@
+node_modules
+*.pdf
+!BACKUP.pdf
+*.tmp.html
+.git
+.github
+test

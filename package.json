@@ -1,0 +1,35 @@
+{
+  "name": "md2pdf-executive",
+  "version": "1.1.0",
+  "description": "Conversor de Markdown técnico para relatórios executivos em PDF A4 com suporte a Mermaid, sem barras de rolagem e sem dependências pesadas de browser.",
+  "main": "src/index.js",
+  "bin": {
+    "md2pdf": "./bin/cli.js",
+    "md2pdf-executive": "./bin/cli.js"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "web": "node server.js",
+    "cli": "node bin/cli.js",
+    "test": "node --test test/*.test.js",
+    "test:unit": "node --test test/parser.test.js test/template.test.js",
+    "build:sample": "node bin/cli.js BACKUP.md -o BACKUP.pdf"
+  },
+  "keywords": [
+    "markdown",
+    "pdf",
+    "mermaid",
+    "executive-report",
+    "print-css",
+    "edge-headless",
+    "chromium"
+  ],
+  "author": "OAB-PB / DevOps",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^15.0.0",
+    "express": "^5.3.0",
+    "marked": "^15.0.7",
+    "multer": "^2.4.0"
+  }
+}

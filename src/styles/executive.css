@@ -1,0 +1,713 @@
+/* ==========================================================================
+   MD2PDF EXECUTIVE - PRINT CSS A4
+   Engenharia de CSS de alta fidelidade para relatórios técnicos executivos.
+   Suporte a temas corporativos, diagramas Mermaid, cartões de terminal e TOC.
+   ========================================================================== */
+
+@page {
+  size: A4 portrait;
+  margin: 18mm 15mm 18mm 15mm;
+}
+
+@page :left {
+  margin-left: 15mm;
+  margin-right: 15mm;
+}
+
+@page :right {
+  margin-left: 15mm;
+  margin-right: 15mm;
+}
+
+/* ==========================================================================
+   PALETAS DE CORES & TEMAS EXECUTIVOS
+   ========================================================================== */
+
+:root,
+body.theme-corporate {
+  /* Padrão Institucional OAB-PB / Azul Corporativo */
+  --color-primary: #0047ab;
+  --color-primary-dark: #002d6b;
+  --color-primary-light: #ebf3fa;
+  --color-primary-subtle: #f4f8fd;
+  --color-accent: #0284c7;
+  --color-badge-bg: #e0ecfb;
+}
+
+body.theme-slate {
+  /* Grafite Moderno / Tech & DevOps Neutro */
+  --color-primary: #334155;
+  --color-primary-dark: #0f172a;
+  --color-primary-light: #f1f5f9;
+  --color-primary-subtle: #f8fafc;
+  --color-accent: #475569;
+  --color-badge-bg: #e2e8f0;
+}
+
+body.theme-emerald {
+  /* Esmeralda / Infraestrutura, Operações & SRE */
+  --color-primary: #059669;
+  --color-primary-dark: #064e3b;
+  --color-primary-light: #ecfdf5;
+  --color-primary-subtle: #f0fdf4;
+  --color-accent: #10b981;
+  --color-badge-bg: #d1fae5;
+}
+
+body.theme-burgundy {
+  /* Vinho / Jurídico Tradicional, Conselhos & Diretorias */
+  --color-primary: #881337;
+  --color-primary-dark: #4c0519;
+  --color-primary-light: #fff1f2;
+  --color-primary-subtle: #fff5f5;
+  --color-accent: #be123c;
+  --color-badge-bg: #ffe4e6;
+}
+
+:root {
+  --color-slate-900: #0f172a;
+  --color-slate-800: #1e293b;
+  --color-slate-700: #334155;
+  --color-slate-600: #475569;
+  --color-slate-500: #64748b;
+  --color-slate-400: #94a3b8;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f1f5f9;
+  --color-slate-50: #f8fafc;
+
+  /* Tipografia com fallbacks robustos para modo offline */
+  --font-text: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-code: 'JetBrains Mono', 'Cascadia Code', Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-text);
+  font-size: 10.5pt;
+  line-height: 1.6;
+  color: var(--color-slate-800);
+  background-color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+/* ==========================================================================
+   TIPOGRAFIA & CABEÇALHOS
+   ========================================================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-text);
+  color: var(--color-primary-dark);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+
+h1 {
+  font-size: 21pt;
+  border-bottom: 2.5px solid var(--color-primary);
+  padding-bottom: 8px;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 14.5pt;
+  border-bottom: 1px solid var(--color-slate-200);
+  padding-bottom: 5px;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 12pt;
+  color: var(--color-slate-800);
+}
+
+h4 {
+  font-size: 10.5pt;
+  color: var(--color-slate-700);
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0.9em;
+  text-align: justify;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+strong {
+  font-weight: 600;
+  color: var(--color-slate-900);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-slate-200);
+  margin: 1.8rem 0;
+}
+
+/* ==========================================================================
+   QUEBRA DE PÁGINA (PAGE BREAK)
+   ========================================================================== */
+
+.page-break {
+  page-break-after: always !important;
+  break-after: page !important;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* ==========================================================================
+   CAPA EXECUTIVA (COVER PAGE)
+   ========================================================================== */
+
+.cover-page {
+  page-break-after: always !important;
+  break-after: page !important;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 10px 10px 10px;
+  border-bottom: 2px solid var(--color-slate-200);
+}
+
+.cover-header {
+  border-bottom: 3px solid var(--color-primary);
+  padding-bottom: 16px;
+}
+
+.cover-org {
+  font-size: 16pt;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.cover-department {
+  font-size: 9pt;
+  color: var(--color-slate-500);
+  font-family: var(--font-code);
+  margin-top: 4px;
+}
+
+.cover-body {
+  margin: 60px 0;
+}
+
+.cover-badge {
+  display: inline-block;
+  background-color: var(--color-badge-bg);
+  color: var(--color-primary-dark);
+  font-size: 8.5pt;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cover-title {
+  font-size: 26pt;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--color-primary-dark);
+  margin: 0 0 16px 0;
+  letter-spacing: -0.03em;
+}
+
+.cover-subtitle {
+  font-size: 12pt;
+  color: var(--color-slate-600);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.cover-metadata-card {
+  background-color: var(--color-primary-subtle);
+  border: 1px solid var(--color-slate-200);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 6px;
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-item .meta-label {
+  font-size: 7.5pt;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-slate-500);
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.meta-item .meta-value {
+  font-size: 9.5pt;
+  font-weight: 600;
+  color: var(--color-slate-800);
+}
+
+.cover-footer {
+  border-top: 1px solid var(--color-slate-200);
+  padding-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 8pt;
+  color: var(--color-slate-500);
+  font-family: var(--font-code);
+}
+
+/* ==========================================================================
+   SUMÁRIO EXECUTIVO (TABLE OF CONTENTS)
+   ========================================================================== */
+
+.executive-toc {
+  margin: 2rem 0;
+  padding: 16px 20px;
+  background-color: var(--color-primary-subtle);
+  border: 1px solid var(--color-slate-200);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 6px;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.toc-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--color-slate-200);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.toc-badge-icon {
+  font-size: 16pt;
+}
+
+.toc-title {
+  font-size: 11pt;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.toc-sub {
+  font-size: 8pt;
+  color: var(--color-slate-500);
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-item {
+  margin: 5px 0;
+}
+
+.toc-item a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-slate-800);
+  font-size: 9pt;
+  font-weight: 500;
+  padding: 3px 0;
+  transition: color 0.15s ease;
+}
+
+.toc-item a:hover {
+  color: var(--color-primary);
+}
+
+.toc-item.toc-h3 {
+  padding-left: 20px;
+  font-size: 8.5pt;
+  color: var(--color-slate-600);
+}
+
+.toc-bullet {
+  color: var(--color-primary);
+  margin-right: 8px;
+  font-size: 11pt;
+}
+
+.toc-label {
+  flex-shrink: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toc-spacer {
+  flex-grow: 1;
+  border-bottom: 1px dotted var(--color-slate-300);
+  margin: 0 8px;
+  min-width: 20px;
+  height: 10px;
+}
+
+.toc-tag {
+  font-family: var(--font-code);
+  font-size: 7pt;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+  background-color: var(--color-badge-bg);
+  padding: 1px 6px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   BLOCOS DE CÓDIGO TÉCNICO (ANTI-SCROLLBAR / CARTÃO TERMINAL)
+   ========================================================================== */
+
+.code-card {
+  margin: 1.2rem 0;
+  border: 1px solid var(--color-slate-200);
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #fdfdfe;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 1px solid var(--color-slate-200);
+  padding: 6px 12px;
+  font-size: 8pt;
+  font-family: var(--font-code);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-slate-600);
+  letter-spacing: 0.05em;
+}
+
+.code-header .terminal-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.code-header .terminal-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd5e1;
+}
+
+.code-header .code-lang {
+  color: var(--color-primary-dark);
+  background-color: var(--color-badge-bg);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 7.5pt;
+  font-weight: 700;
+}
+
+pre {
+  margin: 0;
+  padding: 10px 14px;
+  font-family: var(--font-code);
+  font-size: 8.5pt;
+  line-height: 1.5;
+  background-color: #f8fafc;
+  color: var(--color-slate-900);
+  tab-size: 2;
+
+  /* ESSENCIAL: Quebra suave de linhas para eliminar barras cinzas no PDF */
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+  overflow-x: hidden !important;
+}
+
+code {
+  font-family: var(--font-code);
+  font-size: 0.9em;
+}
+
+p code, li code, td code {
+  background-color: var(--color-slate-100);
+  color: var(--color-primary-dark);
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid var(--color-slate-200);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* ==========================================================================
+   DIAGRAMAS MERMAID
+   ========================================================================== */
+
+.mermaid-wrapper {
+  margin: 1.5rem 0;
+  padding: 14px 10px;
+  background-color: #ffffff;
+  border: 1px solid var(--color-slate-200);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.mermaid-wrapper .mermaid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.mermaid svg {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+}
+
+.mermaid text, .mermaid tspan {
+  font-family: var(--font-text) !important;
+}
+
+.mermaid .edgeLabel, 
+.mermaid .edgeLabel rect,
+.mermaid .edge-label {
+  fill: #ffffff !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.mermaid .edgeLabel text,
+.mermaid .edgeLabel tspan {
+  fill: #0f172a !important;
+  font-weight: 500 !important;
+  font-size: 10.5px !important;
+}
+
+.mermaid .messageText {
+  fill: #0f172a !important;
+  stroke: none !important;
+  font-weight: 500 !important;
+  font-size: 11px !important;
+}
+
+.mermaid .actor text,
+.mermaid .actor tspan {
+  fill: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* ==========================================================================
+   TABELAS EXECUTIVAS
+   ========================================================================== */
+
+.table-wrapper {
+  width: 100%;
+  margin: 1.2rem 0;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+  line-height: 1.45;
+  background-color: #ffffff;
+  border: 1px solid var(--color-slate-200);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+th {
+  background-color: var(--color-primary-dark);
+  color: #ffffff;
+  font-weight: 600;
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 2px solid var(--color-primary);
+  font-size: 8.5pt;
+  letter-spacing: 0.02em;
+}
+
+td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--color-slate-200);
+  color: var(--color-slate-800);
+}
+
+tr:nth-child(even) td {
+  background-color: var(--color-slate-50);
+}
+
+/* ==========================================================================
+   ALERTAS GFM (NOTE / TIP / WARNING / CAUTION / IMPORTANT)
+   ========================================================================== */
+
+blockquote {
+  margin: 1.2rem 0;
+  padding: 10px 16px;
+  background-color: var(--color-slate-50);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 0 6px 6px 0;
+  color: var(--color-slate-700);
+  font-style: normal;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.callout {
+  margin: 1.2rem 0;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border-left: 4px solid;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.callout-title {
+  font-weight: 700;
+  font-size: 9.5pt;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.callout-note {
+  background-color: #f0f7ff;
+  border-color: #0284c7;
+  color: #0c4a6e;
+}
+.callout-note .callout-title { color: #0369a1; }
+
+.callout-tip {
+  background-color: #f0fdf4;
+  border-color: #16a34a;
+  color: #14532d;
+}
+.callout-tip .callout-title { color: #15803d; }
+
+.callout-warning {
+  background-color: #fffbeb;
+  border-color: #d97706;
+  color: #78350f;
+}
+.callout-warning .callout-title { color: #b45309; }
+
+.callout-caution {
+  background-color: #fef2f2;
+  border-color: #dc2626;
+  color: #7f1d1d;
+}
+.callout-caution .callout-title { color: #b91c1c; }
+
+/* ==========================================================================
+   LISTAS & CHECKLISTS (TASK LISTS)
+   ========================================================================== */
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 1em;
+  padding-left: 24px;
+}
+
+li {
+  margin-bottom: 0.35em;
+}
+
+/* Estilo moderno para checkboxes GFM */
+ul:has(input[type="checkbox"]) {
+  list-style: none;
+  padding-left: 4px;
+}
+
+input[type="checkbox"] {
+  accent-color: var(--color-primary);
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
+  vertical-align: -2px;
+}
+
+/* ==========================================================================
+   CABEÇALHO E RODAPÉ ESTÁTICOS DO DOCUMENTO
+   ========================================================================== */
+
+.executive-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+}
+
+.executive-header .org-brand {
+  font-size: 13pt;
+  font-weight: 800;
+  color: var(--color-primary-dark);
+  letter-spacing: -0.02em;
+}
+
+.executive-header .doc-meta {
+  font-size: 8.5pt;
+  color: var(--color-slate-500);
+  text-align: right;
+  font-family: var(--font-code);
+}
+
+.executive-footer {
+  margin-top: 30px;
+  border-top: 1px solid var(--color-slate-200);
+  padding-top: 8px;
+  font-size: 7.5pt;
+  color: var(--color-slate-500);
+  display: flex;
+  justify-content: space-between;
+  page-break-before: auto;
+}

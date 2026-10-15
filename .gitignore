@@ -1,0 +1,29 @@
+# Dependências Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos temporários e de compilação
+*.tmp.html
+*.tmp.md
+*.tmp.pdf
+
+# Arquivos gerados de teste / saída de PDFs pessoais
+*.pdf
+!BACKUP.pdf
+
+# Logs e arquivos de sistema
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Configurações de IDEs locais
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ambientes locais
+.env
+.env.local
